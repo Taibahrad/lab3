@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="En">
+<head>
+  <meta charset="UTF-8">
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 
@@ -22,7 +27,47 @@
     }
 </style>
 
+<body>
+  <div class="content">
+    <header>
+      <h1>Have a Chat :) </h1>
+    </header>
+
+    <div class="input">
+      <button onclick="message()"> Send a Message </button>
+    </div> <nav class="strong"><p id="output">	</p> </nav>
+
+    <script>
+      const fs  = require('fs')
+      function message(){
+        var outputObj = document.getElementById("output");
+        var msg = prompt("Please enter a message: ", "");
+        outputObj.innerHTML = outputObj.innerHTML + msg + "<hr>";
+
+        msg = msg.replace(/\n/g, "\r\n"); // To retain the Line breaks.
+
+        var blob = new Blob([msg], {type: "text/plain"});
+        var anchor = document.createElement("a");
+        anchor.download = 'tempfile.txt';
+        anchor.href = window.URL.createObjectURL(blob);
+        anchor.target = "_blank";
+        anchor.style.display = "none";
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+
+      }
+    </script>
+     
 <div>
     <h1>Good Morning :)</h1><br>
     <p>You are beautiful, your mom loves you {{ count }} times.</p>
+    <p>You can type your messages here to make other people smile.<br>{{ message }}</p>
+    <div class="column">
+        <div class="input">
+            <button onclick="message()"> Send a nice Message </button>
+            <nav class="strong"><p id="output">	</p> </nav>
+        </div>
+      </div>
 </div>
+     </body>
